@@ -98,30 +98,30 @@ if __name__ == '__main__':
             Layout(name="Scan status", size=1),
             Layout(name="Scan results"),
         )
-        with Live(
-                layout,
-                console=console,
-                screen=False,
-                redirect_stderr=False,
-        ) as live:
-            layout['Scan results'].update(Text(
-                text=f"No results yet ({scan_targets})", style="green", justify="center")),
-            layout['Scan status'].update(current_app_progress)
-            nmap_args, data, stderr = scanner.scan(hosts=scan_targets)
-            update_scan_table(scan_result=data,
-                              results_table=results_table,
-                              main_layout=layout,
-                              progress=current_app_progress,
-                              task_id=scanning_task,
-                              full_advisory=args.full
-                              )
-        if args.results:
-            report_data = {
-                'args': nmap_args,
-                'scan': data
-            }
-            with open(args.results, 'w') as report_file:
-                json.dump(report_data, report_file, indent=True)
+        # with Live(
+        #         layout,
+        #         console=console,
+        #         screen=False,
+        #         redirect_stderr=False,
+        # ) as live:
+        #     layout['Scan results'].update(Text(
+        #         text=f"No results yet ({scan_targets})", style="green", justify="center")),
+        #     layout['Scan status'].update(current_app_progress)
+        #     nmap_args, data, stderr = scanner.scan(hosts=scan_targets)
+        #     update_scan_table(scan_result=data,
+        #                       results_table=results_table,
+        #                       main_layout=layout,
+        #                       progress=current_app_progress,
+        #                       task_id=scanning_task,
+        #                       full_advisory=args.full
+        #                       )
+        # if args.results:
+        #     report_data = {
+        #         'args': nmap_args,
+        #         'scan': data
+        #     }
+        #     with open(args.results, 'w') as report_file:
+        #         json.dump(report_data, report_file, indent=True)
 
     except ValueError:
         logging.exception("There was an error")
