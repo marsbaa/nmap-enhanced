@@ -1,5 +1,4 @@
 import xml.etree.ElementTree as ElementTree
-IGNORED_CPES = {"cpe:/o:linux:linux_kernel"}
 
 
 class OutputParser:
@@ -17,8 +16,10 @@ class OutputParser:
         parsed_data = []
         root = ElementTree.fromstring(xml)
         nmap_args = root.attrib['args']
-        for host in root.findall('host'):
-            for address in host.findall('address'):
+        hosts = root.findall('host')
+        for host in hosts:
+            addresses = host.findall('address')
+            for address in addresses:
                 curr_address = address.attrib['addr']
                 data = {
                     'address': curr_address,
@@ -47,8 +48,6 @@ class OutputParser:
                                     service_version = service.attrib['version']
                         cpes = service.findall('cpe')
                         for cpe in cpes:
-                            if cpe.text in IGNORED_CPES:
-                                continue
                             cpe_list.append(cpe.text)
                         data['ports'].append({
                             'port_id': port_id,
@@ -58,5 +57,6 @@ class OutputParser:
                             'service_version': service_version,
                             'cpes': cpe_list
                         })
-                        parsed_data.append(data)
+
+        parsed_data.append(data)
         return nmap_args, parsed_data
