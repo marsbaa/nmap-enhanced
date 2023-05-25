@@ -28,7 +28,7 @@ from system import HostIface, NMapRunner
 from ui import create_scan_table, update_scan_table
 
 
-def get_targets(target_list: List[str], cli_args: argparse.Namespace) -> str:
+def get_targets(target_list, cli_args) -> str:
     if cli_args.target:
         return ','.join(target_list)
     return ','.join(HostIface().get_prefixed_local_networks())
