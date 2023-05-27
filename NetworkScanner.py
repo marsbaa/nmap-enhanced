@@ -2,6 +2,7 @@ import os
 import shlex
 import shutil
 import subprocess
+
 from OutputParse import OutputParser
 
 
@@ -60,6 +61,7 @@ NMAP_HOME_NETWORK_DEFAULT_FLAGS = {
     '--min-parallelism 10': 'Number of probes that may be outstanding for a host group',
     '--osscan-limit': 'Limit OS detection to promising targets',
     '--max-os-tries 1': 'Maximum number of OS detection tries against a target',
-    '-oX -': 'Send XML output to STDOUT, avoid creating a temp file'
+    '-oX ': 'Send XML output to STDOUT, avoid creating a temp file',
+    '-': 'Host seperator'
 }
 __NMAP__FLAGS__ = shlex.split(" ".join(NMAP_HOME_NETWORK_DEFAULT_FLAGS.keys()))
