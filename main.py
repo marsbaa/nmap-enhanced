@@ -18,6 +18,9 @@ from ui import create_scan_table, update_scan_table
 
 
 if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        print("Hosts needs to be provided")
+        sys.exit()
     install()
     logging.basicConfig(
         level="NOTSET",
@@ -68,7 +71,7 @@ if __name__ == "__main__":
         "[yellow]Waiting[/yellow] for scan results... :hourglass:")
     try:
         scanner = NMapRunner()
-        scan_targets = '192.168.86.30'
+        scan_targets = sys.argv[1]
         if args.results:
             table_title = f"Targets: {scan_targets}, results file={args.results}"
         else:
