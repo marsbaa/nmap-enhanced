@@ -12,7 +12,7 @@ from rich.layout import Layout
 from rich.live import Live
 from rich.text import Text
 
-from NetworkScanner import NMapRunner
+from system import NMapRunner
 from query import target_validator
 from ui import create_scan_table, update_scan_table
 
@@ -82,8 +82,6 @@ if __name__ == "__main__":
             Layout(name="Scan status", size=1),
             Layout(name="Scan results"),
         )
-        nmap_args, data, stderr = scanner.scan(hosts=scan_targets)
-
         with Live(
                 layout,
                 console=console,
@@ -99,7 +97,6 @@ if __name__ == "__main__":
                               main_layout=layout,
                               progress=current_app_progress,
                               task_id=scanning_task,
-                              full_advisory=args.full
                               )
         if args.results:
             report_data = {
